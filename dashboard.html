@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commodity Rates Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .category {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    .item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+
+    .item-price {
+      color: #28a745;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        width: 60%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Commodity Rates Dashboard</h1>
+    <div id="dashboard"></div>
+  </div>
+
+  <script>
+    const data = {
+      "commodities": [
+        {
+          "category": "Vegetables",
+          "items": [
+            { "name": "Tomato", "price_per_kg": 30 },
+            { "name": "Potato", "price_per_kg": 25 },
+            { "name": "Onion", "price_per_kg": 40 }
+          ]
+        },
+        {
+          "category": "Grains",
+          "items": [
+            { "name": "Wheat", "price_per_kg": 45 },
+            { "name": "Rice", "price_per_kg": 60 }
+          ]
+        },
+        {
+          "category": "Precious Metals",
+          "items": [
+            { "name": "Gold", "price_per_gram": 5000 },
+            { "name": "Silver", "price_per_gram": 65 }
+          ]
+        }
+      ]
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const dashboard = document.getElementById('dashboard');
+      
+      data.commodities.forEach(commodity => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.classList.add('category');
+        
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.textContent = commodity.category;
+        categoryDiv.appendChild(categoryTitle);
+        
+        commodity.items.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('item');
+          
+          const itemName = document.createElement('div');
+          itemName.classList.add('item-name');
+          itemName.textContent = `${item.name}`;
+          
+          const itemPrice = document.createElement('div');
+          itemPrice.classList.add('item-price');
+          
+          if (item.price_per_kg) {
+            itemPrice.textContent = `₹${item.price_per_kg} per kg`;
+          } else {
+            itemPrice.textContent = `₹${item.price_per_gram} per gram`;
+          }
+
+          itemDiv.appendChild(itemName);
+          itemDiv.appendChild(itemPrice);
+          categoryDiv.appendChild(itemDiv);
+        });
+        
+        dashboard.appendChild(categoryDiv);
+      });
+    });
+  </script>
+</body>
+</html>
